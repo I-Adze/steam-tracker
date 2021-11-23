@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "shared-core": {
+      "tags": []
+    },
     "steam-tracker": {
       "tags": []
     },
