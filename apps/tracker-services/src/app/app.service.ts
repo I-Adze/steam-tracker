@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { map, tap } from 'rxjs/operators';
 import { SteamApp } from '@tracker/shared/core';
+import { map } from 'rxjs/operators';
 
 interface GetAppListRes {
   applist: {

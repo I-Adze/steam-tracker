@@ -1,7 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import styles from './app.module.scss';
-import { backend } from './backend';
 import { SteamApp } from '@tracker/shared/core';
+import { useEffect, useState } from 'react';
+import { backend } from './backend';
 
 export function App() {
   const [requestData, setRequestData] = useState<SteamApp[]>([]);
