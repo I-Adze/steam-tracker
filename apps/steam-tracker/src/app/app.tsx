@@ -15,7 +15,7 @@ export function App() {
 
   return (
     <ul>
-      {requestData.slice(20, 40).map((app) => (
+      {requestData.slice(0, 40).map((app) => (
         <li key={app.appid}>
           {app.appid}: {app.name}
         </li>

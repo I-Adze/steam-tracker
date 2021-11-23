@@ -6,11 +6,15 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  collectCoverage: true,
   coverageDirectory: '../../coverage/apps/steam-tracker',
   coverageThreshold: {
-    branches: 100,
-    lines: 100,
-    functions: 100,
-    statements: 100,
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
   },
+  coverageReporters: ['html', 'text'],
 };
