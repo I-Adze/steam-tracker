@@ -1,0 +1,163 @@
+{
+  "version": 2,
+  "projects": {
+    "steam-tracker": {
+      "root": "apps/steam-tracker",
+      "sourceRoot": "apps/steam-tracker/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/steam-tracker",
+            "index": "apps/steam-tracker/src/index.html",
+            "baseHref": "/",
+            "main": "apps/steam-tracker/src/main.tsx",
+            "polyfills": "apps/steam-tracker/src/polyfills.ts",
+            "tsConfig": "apps/steam-tracker/tsconfig.app.json",
+            "assets": [
+              "apps/steam-tracker/src/favicon.ico",
+              "apps/steam-tracker/src/assets"
+            ],
+            "styles": ["apps/steam-tracker/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/steam-tracker/src/environments/environment.ts",
+                  "with": "apps/steam-tracker/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "steam-tracker:build",
+            "hmr": true,
+            "proxyConfig": "apps/steam-tracker/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "steam-tracker:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/steam-tracker/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/steam-tracker"],
+          "options": {
+            "jestConfig": "apps/steam-tracker/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "steam-tracker-e2e": {
+      "root": "apps/steam-tracker-e2e",
+      "sourceRoot": "apps/steam-tracker-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/steam-tracker-e2e/cypress.json",
+            "devServerTarget": "steam-tracker:serve",
+            "tsConfig": "apps/steam-tracker-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "steam-tracker:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/steam-tracker-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "tracker-services": {
+      "root": "apps/tracker-services",
+      "sourceRoot": "apps/tracker-services/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/tracker-services",
+            "main": "apps/tracker-services/src/main.ts",
+            "tsConfig": "apps/tracker-services/tsconfig.app.json",
+            "assets": ["apps/tracker-services/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/tracker-services/src/environments/environment.ts",
+                  "with": "apps/tracker-services/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "tracker-services:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/tracker-services/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tracker-services"],
+          "options": {
+            "jestConfig": "apps/tracker-services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    }
+  }
+}
