@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "start:ui": "nx serve steam-tracker",
+    "start:svcs": "nx serve tracker-services",
     "build": "nx build",
     "test": "nx test"
   },
