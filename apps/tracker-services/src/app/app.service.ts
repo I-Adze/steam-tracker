@@ -1,7 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { SteamApp } from '@tracker/shared/core';
-import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 interface GetAppListRes {
   applist: {
@@ -11,12 +12,20 @@ interface GetAppListRes {
 
 @Injectable()
 export class AppService {
+  private cache?: SteamApp[];
+
   constructor(private httpService: HttpService) {}
-  getData() {
-    return this.httpService
-      .get<GetAppListRes>(
-        'http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json'
-      )
-      .pipe(map((res) => res.data.applist.apps));
+
+  public getData() {
+    return this.cache
+      ? of(this.cache)
+      : this.httpService
+          .get<GetAppListRes>(
+            'http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json'
+          )
+          .pipe(
+            map((res) => res.data.applist.apps),
+            tap((data) => (this.cache = data))
+          );
   }
 }
