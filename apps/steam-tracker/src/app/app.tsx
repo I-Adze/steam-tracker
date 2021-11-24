@@ -1,9 +1,11 @@
 import { SteamApp } from '@tracker/shared/core';
 import { useEffect, useState } from 'react';
+import './app.scss';
 import { backend } from './backend';
 
 export function App() {
   const [requestData, setRequestData] = useState<SteamApp[]>([]);
+  const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const getAllData = async () => {
@@ -14,13 +16,21 @@ export function App() {
   }, []);
 
   return (
-    <ul>
+    <dl>
       {requestData.slice(0, 40).map((app) => (
-        <li key={app.appid}>
-          {app.appid}: {app.name}
-        </li>
+        <dd className="list-item" key={app.appid}>
+          <button
+            className="invisibutton"
+            onClick={() => setSelectedId(app.appid)}
+          >
+            <span>
+              {app.appid}: {app.name}
+            </span>
+          </button>
+          {app.appid === selectedId ? <span>{app.name}</span> : null}
+        </dd>
       ))}
-    </ul>
+    </dl>
   );
 }
 
