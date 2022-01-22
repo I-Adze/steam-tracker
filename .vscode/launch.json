@@ -1,0 +1,27 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/apps/steam-tracker/src"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Tracker svcs",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ],
+      "program": "${workspaceFolder}/apps/tracker-services/src/main.ts",
+      "outFiles": ["${workspaceFolder}/dist/apps/tracker-services/**/*.js"],
+      "preLaunchTask": "tsc: watch - apps/tracker-services/tsconfig.app.json"
+    }
+  ]
+}
