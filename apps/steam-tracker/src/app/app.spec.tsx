@@ -6,9 +6,10 @@ import { backend } from './backend';
 describe('App', () => {
   beforeEach(() => {
     jest.spyOn(backend, 'getAllApps').mockReturnValue(
-      Promise.resolve({
-        json: () => Promise.resolve([{ appid: 1234, name: 'test' }]),
-      } as Response)
+      Promise.resolve([
+        { appid: 1234, name: 'test' },
+        { appid: 2345, name: 'test2' },
+      ])
     );
   });
 
@@ -19,6 +20,10 @@ describe('App', () => {
       app = render(<App />);
     });
 
-    expect(app?.getAllByRole('listitem')).toHaveLength(1);
+    expect(
+      app?.getByRole('button', {
+        name: /1234: test/i,
+      })
+    ).toBeDefined();
   });
 });

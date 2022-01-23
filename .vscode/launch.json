@@ -13,15 +13,15 @@
     },
     {
       "type": "node",
-      "request": "launch",
+      "request": "attach",
       "name": "Tracker svcs",
       "skipFiles": [
         "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ],
-      "program": "${workspaceFolder}/apps/tracker-services/src/main.ts",
-      "outFiles": ["${workspaceFolder}/dist/apps/tracker-services/**/*.js"],
-      "preLaunchTask": "tsc: watch - apps/tracker-services/tsconfig.app.json"
+      "port": 9229,
+      "localRoot": "${workspaceFolder}/dist/apps/tracker-services",
+      "outFiles": ["${workspaceFolder}/dist/apps/tracker-services/**/*.js"]
     }
   ]
 }
