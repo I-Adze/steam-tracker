@@ -1,22 +1,29 @@
-import { Test } from '@nestjs/testing';
+import { HttpService } from '@nestjs/axios';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Subject } from 'rxjs';
 import { AppService } from './app.service';
 
 describe('AppService', () => {
-  let service: AppService;
+  const httpResponse = new Subject();
+  let app: TestingModule;
+  let subject: AppService;
 
   beforeAll(async () => {
-    const app = await Test.createTestingModule({
-      providers: [AppService],
-    }).compile();
+    app = await Test.createTestingModule({
+      providers: [AppService, HttpService],
+    })
+      .overrideProvider(HttpService)
+      .useValue({ get: () => httpResponse.asObservable() })
+      .compile();
+  });
 
-    service = app.get<AppService>(AppService);
+  beforeEach(() => {
+    subject = app.get(AppService);
   });
 
   describe('getData', () => {
-    it('should return "Welcome to tracker-services!"', () => {
-      expect(service.getData()).toEqual({
-        message: 'Welcome to tracker-services!',
-      });
+    it('should create', () => {
+      expect(subject).toBeDefined();
     });
   });
 });
